@@ -14,8 +14,8 @@ import { Calendar } from "@/components/ui/calendar";
 import { Separator } from "@/components/ui/separator";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import { toast } from "sonner";
-import { 
-  Trash2, Plus, ArrowLeft, Calendar as CalendarIcon, Check, 
+import {
+  Trash2, Plus, ArrowLeft, Calendar as CalendarIcon, Check,
   AlertTriangle, Filter, CheckCircle2, Circle, Clock, Tag, Flame
 } from "lucide-react";
 
@@ -25,14 +25,14 @@ export default function TaskManager() {
   const [desc, setDesc] = useState("");
   const [category, setCategory] = useState("Kuliah");
   const [priority, setPriority] = useState("Penting");
-  
+
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
-  
+
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [categoryFilter, setCategoryFilter] = useState("all");
-  
+
   const [isLoaded, setIsLoaded] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -69,7 +69,7 @@ export default function TaskManager() {
 
     const newTasks = [...tasks, newTask];
     saveTasks(newTasks);
-    
+
     // Reset form
     setTitle("");
     setDesc("");
@@ -111,13 +111,13 @@ export default function TaskManager() {
 
   // Filter tasks
   const filteredTasks = tasks.filter((task) => {
-    const matchesSearch = task.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          task.desc.toLowerCase().includes(searchQuery.toLowerCase());
-    
-    const matchesStatus = statusFilter === "all" || 
-                          (statusFilter === "active" && !task.completed) || 
-                          (statusFilter === "completed" && task.completed);
-                          
+    const matchesSearch = task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      task.desc.toLowerCase().includes(searchQuery.toLowerCase());
+
+    const matchesStatus = statusFilter === "all" ||
+      (statusFilter === "active" && !task.completed) ||
+      (statusFilter === "completed" && task.completed);
+
     const matchesCategory = categoryFilter === "all" || task.category === categoryFilter;
 
     return matchesSearch && matchesStatus && matchesCategory;
@@ -180,7 +180,7 @@ export default function TaskManager() {
               Catat tugas kuliah, piket kosan, dan belanjaan bulanan sebelum numpuk.
             </p>
           </div>
-          
+
           <div className="flex gap-3 bg-zinc-900 border border-white/5 rounded-2xl p-4 self-start sm:self-auto">
             <div className="text-center px-4 border-r border-white/5">
               <span className="block text-2xl font-bold text-red-500">
@@ -199,7 +199,7 @@ export default function TaskManager() {
 
         {/* Main Grid */}
         <div className="grid lg:grid-cols-3 gap-8 items-start">
-          
+
           {/* Left Column: Form */}
           <div className="lg:col-span-1">
             <Card className="border-white/5 bg-zinc-900/50 backdrop-blur-md sticky top-24">
@@ -217,7 +217,7 @@ export default function TaskManager() {
                   {/* Judul */}
                   <div className="space-y-2">
                     <label className="text-xs font-semibold text-zinc-300">Nama Tugas / Agenda</label>
-                    <Input 
+                    <Input
                       placeholder="Contoh: Laporan praktikum fisika"
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}
@@ -270,7 +270,7 @@ export default function TaskManager() {
                       <CalendarIcon className="mr-2 h-4 w-4 text-red-500" />
                       {selectedDate ? formatDate(selectedDate) : "Pilih Tanggal"}
                     </Button>
-                    
+
                     {showCalendar && (
                       <div className="border border-white/5 bg-zinc-950 rounded-lg p-2 mt-2 shadow-2xl z-50 relative flex justify-center">
                         <Calendar
@@ -291,7 +291,7 @@ export default function TaskManager() {
                   {/* Deskripsi */}
                   <div className="space-y-2">
                     <label className="text-xs font-semibold text-zinc-300">Catatan / Detail Tambahan</label>
-                    <Textarea 
+                    <Textarea
                       placeholder="Misal: Kelompok 5, dikumpulin di portal e-learning max jam 23.59"
                       value={desc}
                       onChange={(e) => setDesc(e.target.value)}
@@ -309,21 +309,21 @@ export default function TaskManager() {
 
           {/* Right Column: List */}
           <div className="lg:col-span-2 space-y-6">
-            
+
             {/* Filters Card */}
             <Card className="border-white/5 bg-zinc-900/50 backdrop-blur-md">
               <CardContent className="pt-6 space-y-4">
                 <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
                   {/* Search */}
                   <div className="w-full md:flex-1">
-                    <Input 
+                    <Input
                       placeholder="Cari tugas di sini..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       className="bg-zinc-950 border-white/5 text-zinc-100 focus-visible:ring-red-500/20 w-full"
                     />
                   </div>
-                  
+
                   {/* Category Filter */}
                   <div className="w-full md:w-48">
                     <Select value={categoryFilter} onValueChange={setCategoryFilter}>
@@ -371,13 +371,13 @@ export default function TaskManager() {
                 </div>
               ) : (
                 filteredTasks.map((task) => (
-                  <Card 
-                    key={task.id} 
+                  <Card
+                    key={task.id}
                     className={`border-y border-r border-l-4 border-white/5 transition-all hover:-translate-y-[2px] hover:shadow-lg hover:shadow-black/20 ${getPriorityColor(task.priority)}`}
                   >
                     <CardContent className="p-5 flex items-start gap-4">
                       {/* Checkbox Icon */}
-                      <button 
+                      <button
                         onClick={() => toggleTask(task.id)}
                         className="mt-1 focus:outline-none shrink-0"
                       >
@@ -429,16 +429,16 @@ export default function TaskManager() {
 
                       {/* Delete Action */}
                       <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Button 
-                            variant="ghost" 
+                        <TooltipTrigger render={
+                          <Button
+                            variant="ghost"
                             size="icon-xs"
                             onClick={() => handleDeleteClick(task)}
                             className="text-zinc-500 hover:text-red-500 hover:bg-red-500/10 shrink-0 self-center"
                           >
                             <Trash2 className="w-4 h-4" />
                           </Button>
-                        </TooltipTrigger>
+                        } />
                         <TooltipContent className="bg-zinc-800 text-zinc-200 border-white/5">
                           Hapus tugas
                         </TooltipContent>

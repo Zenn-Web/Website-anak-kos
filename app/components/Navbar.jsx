@@ -3,21 +3,21 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuLabel, 
-  DropdownMenuSeparator, 
-  DropdownMenuTrigger 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import { 
-  Sheet, 
-  SheetContent, 
-  SheetHeader, 
-  SheetTitle, 
-  SheetTrigger, 
-  SheetClose 
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+  SheetClose
 } from "@/components/ui/sheet";
 import { toast } from "sonner";
 import { Menu, LayoutDashboard, Wallet, LogOut, CheckSquare, Sparkles } from "lucide-react";
@@ -30,14 +30,14 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/5 bg-zinc-950/80 backdrop-blur supports-[backdrop-filter]:bg-zinc-950/60">
       <div className="container mx-auto max-w-6xl flex h-16 items-center px-4 justify-between">
-        
+
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
           <span className="text-xl font-bold bg-gradient-to-r from-red-500 to-yellow-500 bg-clip-text text-transparent">
             KosConnect
           </span>
         </Link>
-        
+
         {/* Desktop Nav */}
         <nav className="hidden md:flex gap-6 text-sm font-medium text-zinc-400">
           <Link href="/#fitur" className="hover:text-white transition-colors">Fitur</Link>
@@ -47,17 +47,17 @@ export function Navbar() {
 
         {/* User / Actions */}
         <div className="flex items-center gap-4">
-          
+
           {/* User Dropdown */}
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
+            <DropdownMenuTrigger render={
               <button className="flex items-center outline-none focus:ring-2 focus:ring-red-500/30 rounded-full transition-all">
                 <Avatar size="default">
                   <AvatarImage src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Avatar Budi" />
                   <AvatarFallback className="bg-red-500/10 text-red-500 font-bold">BS</AvatarFallback>
                 </Avatar>
               </button>
-            </DropdownMenuTrigger>
+            } />
             <DropdownMenuContent className="bg-zinc-900 border-white/5 text-zinc-300 w-56 align-end">
               <DropdownMenuLabel className="font-semibold text-zinc-100 flex flex-col">
                 <span>Budi Santoso</span>
@@ -75,8 +75,8 @@ export function Navbar() {
                 </DropdownMenuItem>
               </Link>
               <DropdownMenuSeparator className="bg-white/5" />
-              <DropdownMenuItem 
-                onClick={handleLogout} 
+              <DropdownMenuItem
+                onClick={handleLogout}
                 className="focus:bg-red-500/10 focus:text-red-500 cursor-pointer text-red-400 gap-2"
               >
                 <LogOut className="w-4 h-4" /> Keluar Akun
@@ -100,12 +100,12 @@ export function Navbar() {
 
           {/* Mobile Navigation Trigger (Hamburger) */}
           <Sheet>
-            <SheetTrigger asChild>
+            <SheetTrigger render={
               <Button variant="ghost" size="icon" className="md:hidden text-zinc-400 hover:text-white">
                 <Menu className="w-5 h-5" />
                 <span className="sr-only">Toggle Menu</span>
               </Button>
-            </SheetTrigger>
+            } />
             <SheetContent side="right" className="bg-zinc-900 border-white/5 text-zinc-100 p-6">
               <SheetHeader className="pb-6 border-b border-white/5">
                 <SheetTitle className="text-xl font-bold bg-gradient-to-r from-red-500 to-yellow-500 bg-clip-text text-transparent text-left">
@@ -114,22 +114,22 @@ export function Navbar() {
               </SheetHeader>
               <div className="flex flex-col gap-6 mt-6">
                 <nav className="flex flex-col gap-4 text-lg font-medium text-zinc-400">
-                  <SheetClose asChild>
+                  <SheetClose render={
                     <Link href="/#fitur" className="hover:text-white transition-colors">Fitur</Link>
-                  </SheetClose>
-                  <SheetClose asChild>
+                  } />
+                  <SheetClose render={
                     <Link href="/#manfaat" className="hover:text-white transition-colors">Manfaat</Link>
-                  </SheetClose>
-                  <SheetClose asChild>
+                  } />
+                  <SheetClose render={
                     <Link href="/#harga" className="hover:text-white transition-colors">Harga</Link>
-                  </SheetClose>
+                  } />
                 </nav>
 
                 <DropdownMenuSeparator className="bg-white/5" />
 
                 <div className="flex flex-col gap-3">
                   <p className="text-xs text-zinc-500 font-semibold uppercase tracking-wider">Aplikasi Saya</p>
-                  <SheetClose asChild>
+                  <SheetClose render={
                     <Link href="/task-manager" className="flex items-center gap-3 p-3 bg-zinc-950 border border-white/5 rounded-xl hover:bg-zinc-800 transition-colors">
                       <CheckSquare className="w-5 h-5 text-red-500" />
                       <div>
@@ -137,9 +137,9 @@ export function Navbar() {
                         <p className="text-[10px] text-zinc-500">Kelola tugas deadlinemu</p>
                       </div>
                     </Link>
-                  </SheetClose>
-                  
-                  <SheetClose asChild>
+                  } />
+
+                  <SheetClose render={
                     <Link href="/expense-tracker" className="flex items-center gap-3 p-3 bg-zinc-950 border border-white/5 rounded-xl hover:bg-zinc-800 transition-colors">
                       <Wallet className="w-5 h-5 text-yellow-500" />
                       <div>
@@ -147,7 +147,7 @@ export function Navbar() {
                         <p className="text-[10px] text-zinc-500">Pantau duit tanggal tua</p>
                       </div>
                     </Link>
-                  </SheetClose>
+                  } />
                 </div>
               </div>
             </SheetContent>

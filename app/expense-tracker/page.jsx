@@ -15,8 +15,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
-import { 
-  ArrowLeft, Calendar as CalendarIcon, Info, Trash2, 
+import {
+  ArrowLeft, Calendar as CalendarIcon, Info, Trash2,
   TrendingUp, TrendingDown, Wallet, AlertTriangle, Plus, PlusCircle
 } from "lucide-react";
 
@@ -28,14 +28,14 @@ export default function ExpenseTracker() {
   const [amount, setAmount] = useState("");
   const [type, setType] = useState("expense");
   const [category, setCategory] = useState("Makanan");
-  
+
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
-  
+
   const [isLoaded, setIsLoaded] = useState(false);
   const [transactionToDelete, setTransactionToDelete] = useState(null);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  
+
   const [statusFilter, setStatusFilter] = useState("all");
 
   const chartRef = useRef(null);
@@ -45,7 +45,7 @@ export default function ExpenseTracker() {
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("expense-transactions")) || [];
     setTransactions(saved);
-    
+
     // Simulate loading for Skeleton demo
     const timer = setTimeout(() => {
       setIsLoaded(true);
@@ -72,26 +72,26 @@ export default function ExpenseTracker() {
     }
 
     const ctx = chartRef.current.getContext("2d");
-    
-    const data = (income === 0 && expense === 0) 
-      ? { 
-          labels: ["Belum Ada Data"], 
-          datasets: [{ 
-            data: [1], 
-            backgroundColor: ["rgba(255, 255, 255, 0.05)"], 
-            borderColor: "rgba(255, 255, 255, 0.1)", 
-            borderWidth: 1 
-          }] 
-        }
-      : { 
-          labels: ["Pemasukan", "Pengeluaran"], 
-          datasets: [{ 
-            data: [income, expense], 
-            backgroundColor: ["#10b981", "#f43f5e"], 
-            borderColor: "#09090b", 
-            borderWidth: 2 
-          }] 
-        };
+
+    const data = (income === 0 && expense === 0)
+      ? {
+        labels: ["Belum Ada Data"],
+        datasets: [{
+          data: [1],
+          backgroundColor: ["rgba(255, 255, 255, 0.05)"],
+          borderColor: "rgba(255, 255, 255, 0.1)",
+          borderWidth: 1
+        }]
+      }
+      : {
+        labels: ["Pemasukan", "Pengeluaran"],
+        datasets: [{
+          data: [income, expense],
+          backgroundColor: ["#10b981", "#f43f5e"],
+          borderColor: "#09090b",
+          borderWidth: 2
+        }]
+      };
 
     chartInstance.current = new Chart(ctx, {
       type: "doughnut",
@@ -103,9 +103,9 @@ export default function ExpenseTracker() {
         plugins: {
           legend: {
             position: "bottom",
-            labels: { 
-              color: "#a1a1aa", 
-              font: { family: "Plus Jakarta Sans", size: 11, weight: "500" }, 
+            labels: {
+              color: "#a1a1aa",
+              font: { family: "Plus Jakarta Sans", size: 11, weight: "500" },
               usePointStyle: true,
               padding: 15
             }
@@ -213,7 +213,7 @@ export default function ExpenseTracker() {
   return (
     <div className="bg-zinc-950 bg-grid-pattern min-h-screen text-zinc-100 p-4 sm:p-8 md:p-12 flex flex-col items-center font-sans">
       <div className="w-full max-w-6xl flex flex-col gap-8">
-        
+
         {/* Header */}
         <div className="flex flex-col gap-2">
           <Link href="/" className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-white transition-colors mb-2">
@@ -236,9 +236,9 @@ export default function ExpenseTracker() {
               <CardDescription className="text-zinc-400 flex items-center gap-1 text-xs">
                 Sisa Saldo
                 <Tooltip>
-                  <TooltipTrigger asChild>
+                  <TooltipTrigger render={
                     <button className="text-zinc-500 hover:text-zinc-300"><Info className="w-3.5 h-3.5" /></button>
-                  </TooltipTrigger>
+                  } />
                   <TooltipContent className="bg-zinc-800 text-zinc-200 border-white/5">
                     Pemasukan dikurangi Pengeluaran
                   </TooltipContent>
@@ -274,7 +274,7 @@ export default function ExpenseTracker() {
 
         {/* Main Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          
+
           {/* Left Panel: Form */}
           <div className="lg:col-span-4 space-y-6">
             <Card className="bg-zinc-900/40 border-white/5 backdrop-blur-md">
@@ -291,7 +291,7 @@ export default function ExpenseTracker() {
                   {/* Judul */}
                   <div className="space-y-2">
                     <label className="text-xs font-semibold text-zinc-300">Nama Transaksi</label>
-                    <Input 
+                    <Input
                       placeholder="Misal: Uang bulanan ortu, Beli baso"
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}
@@ -303,7 +303,7 @@ export default function ExpenseTracker() {
                   {/* Nominal */}
                   <div className="space-y-2">
                     <label className="text-xs font-semibold text-zinc-300">Nominal (Rp)</label>
-                    <Input 
+                    <Input
                       placeholder="0"
                       value={amount}
                       onChange={handleAmountChange}
@@ -356,7 +356,7 @@ export default function ExpenseTracker() {
                       <CalendarIcon className="mr-2 h-4 w-4 text-red-500" />
                       {selectedDate ? formatDate(selectedDate) : "Pilih Tanggal"}
                     </Button>
-                    
+
                     {showCalendar && (
                       <div className="border border-white/5 bg-zinc-950 rounded-lg p-2 mt-2 shadow-2xl z-50 relative flex justify-center">
                         <Calendar
@@ -418,7 +418,7 @@ export default function ExpenseTracker() {
                   </TabsList>
                 </Tabs>
               </CardHeader>
-              
+
               <CardContent className="pt-6">
                 {!isLoaded ? (
                   <div className="space-y-4">
@@ -449,7 +449,7 @@ export default function ExpenseTracker() {
                           <TableCell className="text-zinc-400 text-xs">
                             {formatDate(t.date)}
                           </TableCell>
-                          
+
                           {/* Transaksi */}
                           <TableCell className="font-bold text-zinc-100">
                             <div className="flex items-center gap-2">
@@ -457,7 +457,7 @@ export default function ExpenseTracker() {
                               {t.title}
                             </div>
                           </TableCell>
-                          
+
                           {/* Kategori */}
                           <TableCell>
                             <Badge variant="outline" className="text-[10px] bg-white/5 border-white/10 text-zinc-300 font-medium">
@@ -469,25 +469,25 @@ export default function ExpenseTracker() {
                               {t.category === "Lainnya" && "🌱 Lainnya"}
                             </Badge>
                           </TableCell>
-                          
+
                           {/* Nominal */}
                           <TableCell className={`text-right font-extrabold ${t.type === 'income' ? 'text-emerald-400' : 'text-rose-400'}`}>
                             {t.type === 'income' ? '+' : '-'} Rp {t.amount.toLocaleString("id-ID")}
                           </TableCell>
-                          
+
                           {/* Action */}
                           <TableCell>
                             <Tooltip>
-                              <TooltipTrigger asChild>
-                                <Button 
-                                  variant="ghost" 
+                              <TooltipTrigger render={
+                                <Button
+                                  variant="ghost"
                                   size="icon-xs"
                                   onClick={() => handleDeleteClick(t)}
                                   className="text-zinc-500 hover:text-red-500 hover:bg-red-500/10"
                                 >
                                   <Trash2 className="w-4 h-4" />
                                 </Button>
-                              </TooltipTrigger>
+                              } />
                               <TooltipContent className="bg-zinc-800 text-zinc-200 border-white/5">
                                 Hapus catatan
                               </TooltipContent>

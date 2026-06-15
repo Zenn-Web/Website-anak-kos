@@ -9,7 +9,7 @@ export function FaqSection() {
           <p className="text-muted-foreground">Kumpulan pertanyaan maba dan senior yang kebingungan.</p>
         </div>
 
-        <Accordion type="single" collapsible className="w-full bg-background border border-border/50 rounded-2xl p-4 shadow-sm">
+        <Accordion className="w-full bg-background border border-border/50 rounded-2xl p-4 shadow-sm">
           <AccordionItem value="item-1">
             <AccordionTrigger className="text-left font-semibold">Apakah aplikasi ini benar-benar gratis?</AccordionTrigger>
             <AccordionContent className="text-muted-foreground">

@@ -1,11 +1,11 @@
 "use client";
 
-import { 
-  Carousel, 
-  CarouselContent, 
-  CarouselItem, 
-  CarouselNext, 
-  CarouselPrevious 
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious
 } from "@/components/ui/carousel";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -53,7 +53,7 @@ export function SurvivalGuide() {
   return (
     <section className="py-20 bg-zinc-950 overflow-hidden border-t border-white/5">
       <div className="container mx-auto max-w-6xl px-4">
-        
+
         {/* Section Header */}
         <div className="text-center mb-12">
           <Badge className="bg-red-500/10 border-red-500/30 text-red-500 px-3 py-1 mb-4 rounded-full text-xs">
@@ -92,7 +92,7 @@ export function SurvivalGuide() {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            
+
             {/* Buttons positioned absolutely */}
             <CarouselPrevious className="border-white/10 bg-zinc-900 hover:bg-zinc-800 text-white left-[-45px]" />
             <CarouselNext className="border-white/10 bg-zinc-900 hover:bg-zinc-800 text-white right-[-45px]" />
